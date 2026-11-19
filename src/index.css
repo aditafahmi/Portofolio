@@ -5,12 +5,16 @@
 @layer base {
   :root {
     --background: #f6f5f0;
+    --background-rgb: 246 245 240;
     --foreground: #141413;
+    --foreground-rgb: 20 20 19;
     --card: #faf9f5;
+    --card-rgb: 250 249 245;
     --card-foreground: #141413;
     --muted: #eae8e1;
+    --muted-rgb: 234 232 225;
     --muted-foreground: #68645e;
-    --border: rgba(20, 20, 19, 0.12);
+    --border: rgba(20, 20, 19, 0.14);
     --ring: #141413;
     --chart-2: #b45309;
 

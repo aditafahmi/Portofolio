@@ -2013,7 +2013,7 @@ function Detail({
     >
       <div
         aria-hidden="true"
-        className={`absolute inset-0 bg-background/90 backdrop-blur-xl transition-opacity duration-300 motion-reduce:transition-none ${shown ? "opacity-100" : "opacity-0"}`}
+        className={`absolute inset-0 bg-background/95 backdrop-blur-xl transition-opacity duration-300 motion-reduce:transition-none ${shown ? "opacity-100" : "opacity-0"}`}
         onClick={dismiss}
       />
       <button
