@@ -39,6 +39,7 @@ export interface PictureRailGalleryProps extends React.ComponentProps<"section">
   items: PictureRailItem[];
   eyebrow?: string;
   heading?: string;
+  subtitle?: string;
   /** Shown under the wall while no print is lit. */
   caption?: string;
   /** Call to action rendered under the caption. */
@@ -348,6 +349,7 @@ export function PictureRailGallery({
   items,
   eyebrow,
   heading,
+  subtitle,
   caption,
   action,
   autoplay = false,
@@ -995,7 +997,7 @@ export function PictureRailGallery({
             "radial-gradient(72% 58% at 50% 44%, color-mix(in oklab, var(--color-foreground) 4%, transparent), transparent 78%)",
         }}
       />
-      {(eyebrow || heading) && (
+      {(eyebrow || heading || subtitle) && (
         <header className="relative z-10 flex flex-col items-center gap-2 px-6 pt-7 text-center">
           {eyebrow && (
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-muted-foreground">
@@ -1003,9 +1005,14 @@ export function PictureRailGallery({
             </p>
           )}
           {heading && (
-            <h2 className="text-balance text-2xl font-medium tracking-tight sm:text-3xl">
+            <h1 className="font-serif text-balance text-3xl font-normal tracking-tight sm:text-5xl">
               {heading}
-            </h2>
+            </h1>
+          )}
+          {subtitle && (
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.24em] text-muted-foreground">
+              {subtitle}
+            </p>
           )}
         </header>
       )}

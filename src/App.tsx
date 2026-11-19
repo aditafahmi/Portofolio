@@ -29,14 +29,14 @@ const RAIL_PRESETS: Array<{
   drop: number;
   tag: string;
 }> = [
-  { aspect: 1.25, frame: "black", mat: true, drop: 0.02, tag: "20 MW · Tier IV" },
-  { aspect: 1.15, frame: "white", mat: true, drop: 0.1, tag: "78 MW · Thailand" },
-  { aspect: 1.33, frame: "oak", mat: false, drop: -0.02, tag: "±123 MW · West Java" },
-  { aspect: 0.9, frame: "black", mat: true, drop: 0.14, tag: "7-Storey · Forensic" },
-  { aspect: 1.1, frame: "white", mat: true, drop: 0.05, tag: "5,711 m² · Retrofit" },
-  { aspect: 0.8, frame: "oak", mat: true, drop: 0.0, tag: "14 Storeys · Jakarta" },
-  { aspect: 1.35, frame: "black", mat: false, drop: 0.08, tag: "92 ha · Industrial" },
-  { aspect: 1.15, frame: "oak", mat: true, drop: 0.03, tag: "CCPP · LNG · Mining" },
+  { aspect: 1.25, frame: "black", mat: true, drop: 0.02, tag: "Data Center · 20 MW" },
+  { aspect: 1.15, frame: "white", mat: true, drop: 0.1, tag: "Data Center · 78 MW" },
+  { aspect: 1.33, frame: "oak", mat: false, drop: -0.02, tag: "Data Center · ±123 MW" },
+  { aspect: 0.9, frame: "black", mat: true, drop: 0.14, tag: "Forensic & Retrofit" },
+  { aspect: 1.1, frame: "white", mat: true, drop: 0.05, tag: "Industrial · Extension" },
+  { aspect: 0.8, frame: "oak", mat: true, drop: 0.0, tag: "Commercial · 14 Storeys" },
+  { aspect: 1.35, frame: "black", mat: false, drop: 0.08, tag: "Industrial · 92 ha" },
+  { aspect: 1.15, frame: "oak", mat: true, drop: 0.03, tag: "Energy · LNG · Mining" },
 ];
 
 export default function App() {
@@ -295,8 +295,8 @@ export default function App() {
       <div id="top" className="pt-20">
         <PictureRailGallery
           items={railItems}
-          eyebrow={`${profile.role} · ${profile.location}`}
-          heading="Structures designed to stay standing when the ground moves."
+          heading={profile.name}
+          subtitle={`${profile.role} · ${profile.disciplines.join(" · ")}`}
           caption="Brush along the rail to light a project, slide it along the wire, or lift a frame to inspect the label."
           autoplay
           interval={3200}
