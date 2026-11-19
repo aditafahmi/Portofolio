@@ -3,17 +3,26 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --bg-page: #f6f5f0;
+    --bg-surface: #eceae3;
+    --ink-primary: #111111;
+    --ink-muted: #66635d;
+    --hairline: rgba(17, 17, 17, 0.12);
+    --plate-bg: #eae8e1;
+  }
+
   html {
     scroll-behavior: smooth;
-    background-color: #070707;
-    color: #f2efe9;
-    color-scheme: dark;
+    background-color: var(--bg-page);
+    color: var(--ink-primary);
+    color-scheme: light;
   }
 
   body {
     margin: 0;
-    background-color: #070707;
-    color: #f2efe9;
+    background-color: var(--bg-page);
+    color: var(--ink-primary);
     font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -21,8 +30,8 @@
   }
 
   ::selection {
-    background: #f2efe9;
-    color: #070707;
+    background: #111111;
+    color: #f6f5f0;
   }
 }
 
@@ -33,13 +42,13 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #070707;
+  background: #f6f5f0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(242, 239, 233, 0.18);
+  background: rgba(17, 17, 17, 0.2);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(242, 239, 233, 0.35);
+  background: rgba(17, 17, 17, 0.38);
 }

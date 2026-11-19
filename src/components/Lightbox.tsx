@@ -37,7 +37,7 @@ export default function Lightbox({
 
   return (
     <div
-      className="fixed inset-0 z-[120] flex items-center justify-center bg-[#050505]/95 p-6 backdrop-blur-md md:p-14"
+      className="fixed inset-0 z-[120] flex items-center justify-center bg-[#f6f5f0]/95 p-6 backdrop-blur-md md:p-14"
       role="dialog"
       aria-modal="true"
       aria-label="Full resolution plate viewer"
@@ -86,7 +86,7 @@ export default function Lightbox({
         <div
           className={cn(
             "flex max-h-[calc(100vh-160px)] items-center justify-center overflow-hidden border border-bone/10",
-            current.lightPlate ? "bg-[#efede8] p-4 md:p-7" : "bg-[#0a0a0a]"
+            current.lightPlate ? "bg-[#ffffff] p-4 md:p-7" : "bg-[#eceae3]"
           )}
         >
           <img

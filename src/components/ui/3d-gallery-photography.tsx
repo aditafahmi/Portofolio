@@ -135,11 +135,11 @@ const createClothMaterial = (monochrome = true) => {
         // Filmic silver-gelatin monochrome grading to unify all floating plates
         if (uMonochrome > 0.5) {
           float lum = dot(color.rgb, vec3(0.299, 0.587, 0.114));
-          // Subtle editorial S-curve contrast and controlled highlights
-          lum = clamp((lum - 0.5) * 1.14 + 0.48, 0.0, 1.0);
-          float brightness = mix(0.76, 0.92, isHovered);
-          // Warm archival paper tint matching #F2EFE9
-          color.rgb = vec3(lum * brightness) * vec3(1.0, 0.992, 0.975);
+          // Lift shadows & midtones slightly so architectural/site photos stay bright and crisp
+          lum = pow(clamp(lum, 0.0, 1.0), 0.9);
+          lum = clamp((lum - 0.5) * 1.12 + 0.54, 0.0, 1.0);
+          float brightness = mix(0.96, 1.04, isHovered);
+          color.rgb = vec3(lum * brightness);
         }
 
         float curveHighlight = abs(scrollForce) * 0.035;
@@ -520,13 +520,13 @@ export default function InfiniteGallery({
   className = "h-screen w-full",
   style,
   fadeSettings = {
-    fadeIn: { start: 0.04, end: 0.24 },
-    fadeOut: { start: 0.66, end: 0.86 },
+    fadeIn: { start: 0.04, end: 0.2 },
+    fadeOut: { start: 0.78, end: 0.96 },
   },
   blurSettings = {
-    blurIn: { start: 0.0, end: 0.14 },
-    blurOut: { start: 0.7, end: 0.9 },
-    maxBlur: 5.0,
+    blurIn: { start: 0.0, end: 0.12 },
+    blurOut: { start: 0.82, end: 0.98 },
+    maxBlur: 4.0,
   },
 }: InfiniteGalleryProps) {
   const [webglSupported, setWebglSupported] = useState(true);

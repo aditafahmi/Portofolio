@@ -277,32 +277,32 @@ export default function App() {
           className="h-full w-full"
         />
 
-        {/* Subtle editorial vignette + soft center readability veil */}
+        {/* Subtle gallery-white soft center readability veil (keeps outer 3D plates bright) */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 52% 36% at 50% 50%, rgba(7,7,7,0.72) 0%, rgba(7,7,7,0.34) 58%, rgba(7,7,7,0.12) 82%, rgba(7,7,7,0.78) 100%)",
+              "radial-gradient(ellipse 46% 32% at 50% 50%, rgba(246,245,240,0.82) 0%, rgba(246,245,240,0.42) 55%, rgba(246,245,240,0.0) 84%)",
           }}
         />
 
-        {/* Monumental Centered Editorial Typography — crisp contrast at all zoom depths */}
+        {/* Monumental Centered Editorial Typography — crisp ink on gallery white */}
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
           <p
-            className="mb-4 font-mono text-[10px] uppercase tracking-[0.34em] text-bone/90 md:text-[11px]"
-            style={{ textShadow: "0 2px 18px rgba(0,0,0,0.95), 0 1px 4px rgba(0,0,0,0.95)" }}
+            className="mb-4 font-mono text-[10px] uppercase tracking-[0.34em] text-[#111111]/85 md:text-[11px]"
+            style={{ textShadow: "0 1px 14px rgba(246,245,240,0.95), 0 0 4px rgba(246,245,240,0.95)" }}
           >
             {profile.role} · {profile.location}
           </p>
           <h1
-            className="font-serif text-5xl font-light tracking-tight text-[#faf8f4] sm:text-7xl md:text-[6.25rem] md:leading-[0.95]"
-            style={{ textShadow: "0 4px 36px rgba(0,0,0,0.92), 0 2px 10px rgba(0,0,0,0.85)" }}
+            className="font-serif text-5xl font-light tracking-tight text-[#0d0d0d] sm:text-7xl md:text-[6.25rem] md:leading-[0.95]"
+            style={{ textShadow: "0 4px 28px rgba(246,245,240,0.95), 0 1px 6px rgba(246,245,240,0.9)" }}
           >
             <span className="italic">Adita Fahmi</span> Hanif
           </h1>
           <p
-            className="mt-6 max-w-xl font-mono text-[10px] uppercase tracking-[0.26em] text-bone/90 md:text-[11px]"
-            style={{ textShadow: "0 2px 18px rgba(0,0,0,0.95), 0 1px 4px rgba(0,0,0,0.95)" }}
+            className="mt-6 max-w-xl font-mono text-[10px] uppercase tracking-[0.26em] text-[#111111]/85 md:text-[11px]"
+            style={{ textShadow: "0 1px 14px rgba(246,245,240,0.95), 0 0 4px rgba(246,245,240,0.95)" }}
           >
             Data Centers · Seismic Design · Retrofit &amp; Forensics
           </p>
@@ -420,7 +420,7 @@ export default function App() {
             </div>
 
             <div className="lg:col-span-6">
-              <div className="overflow-hidden bg-[#0e0e0e]">
+              <div className="overflow-hidden bg-[#eae8e1]">
                 <img
                   src={
                     portraitMode === "field"
@@ -562,8 +562,8 @@ export default function App() {
                     className={cn(
                       "relative aspect-[16/10.5] w-full overflow-hidden",
                       project.coverLightPlate
-                        ? "bg-[#efede8] p-6"
-                        : "bg-[#111111]"
+                        ? "bg-[#ffffff] p-6 border border-bone/10"
+                        : "bg-[#eae8e1]"
                     )}
                   >
                     <img
@@ -649,8 +649,8 @@ export default function App() {
                         className={cn(
                           "aspect-[4/3] overflow-hidden border border-bone/10",
                           hoveredIndexProject.coverLightPlate
-                            ? "bg-[#efede8] p-4"
-                            : "bg-[#111111]"
+                            ? "bg-[#ffffff] p-4"
+                            : "bg-[#eae8e1]"
                         )}
                       >
                         <img
@@ -710,7 +710,7 @@ export default function App() {
                 <div
                   className={cn(
                     "aspect-[4/3] w-full overflow-hidden border border-bone/10",
-                    item.lightPlate ? "bg-[#efede8] p-3" : "bg-[#111111]"
+                    item.lightPlate ? "bg-[#ffffff] p-3" : "bg-[#eae8e1]"
                   )}
                 >
                   <img

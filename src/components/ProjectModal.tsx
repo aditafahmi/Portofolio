@@ -59,14 +59,14 @@ export default function ProjectModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#040404]/90 p-3 backdrop-blur-md md:p-8"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-bone/40 p-3 backdrop-blur-md md:p-8"
       role="dialog"
       aria-modal="true"
       aria-labelledby="case-study-title"
       onClick={onClose}
     >
       <div
-        className="flex max-h-[calc(100vh-24px)] w-full max-w-5xl flex-col overflow-hidden border border-bone/15 bg-[#0b0b0b] text-bone shadow-2xl md:max-h-[calc(100vh-64px)]"
+        className="flex max-h-[calc(100vh-24px)] w-full max-w-5xl flex-col overflow-hidden border border-bone/15 bg-obsidian text-bone shadow-2xl md:max-h-[calc(100vh-64px)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Minimal Editorial Top Bar */}
@@ -171,7 +171,7 @@ export default function ProjectModal({
                   onClick={() => onOpenLightbox(project.gallery, slideIndex)}
                   className={cn(
                     "group relative aspect-[16/9.5] w-full cursor-zoom-in overflow-hidden border border-bone/10",
-                    activeSlide.lightPlate ? "bg-[#efede8] p-4 md:p-7" : "bg-[#080808]"
+                    activeSlide.lightPlate ? "bg-[#ffffff] p-4 md:p-7" : "bg-[#eceae3]"
                   )}
                 >
                   <img
@@ -212,7 +212,7 @@ export default function ProjectModal({
                         aria-label={`View plate ${idx + 1}: ${slide.caption}`}
                         className={cn(
                           "h-16 w-28 shrink-0 overflow-hidden border transition",
-                          slide.lightPlate ? "bg-[#efede8] p-1" : "bg-[#0a0a0a]",
+                          slide.lightPlate ? "bg-[#ffffff] p-1" : "bg-[#eceae3]",
                           idx === slideIndex
                             ? "border-bone opacity-100"
                             : "border-bone/10 opacity-45 hover:opacity-85"
@@ -244,7 +244,7 @@ export default function ProjectModal({
                         }
                         className={cn(
                           "group relative aspect-[16/10.5] cursor-zoom-in overflow-hidden border border-bone/10",
-                          pane.lightPlate ? "bg-[#efede8] p-4" : "bg-[#080808]"
+                          pane.lightPlate ? "bg-[#ffffff] p-4" : "bg-[#eceae3]"
                         )}
                       >
                         <img
