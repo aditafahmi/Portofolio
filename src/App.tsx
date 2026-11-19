@@ -4,13 +4,15 @@ import {
   ArrowUpRight,
   Check,
   Copy,
-  Expand,
   Grid2x2,
   List,
   Menu,
   X,
 } from "lucide-react";
-import InfiniteGallery from "@/components/ui/3d-gallery-photography";
+import PictureRailGallery, {
+  type PictureFrameStyle,
+  type PictureRailItem,
+} from "@/components/ui/picture-rail-gallery";
 import ProjectModal from "@/components/ProjectModal";
 import Lightbox from "@/components/Lightbox";
 import {
@@ -20,12 +22,29 @@ import {
 } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
+const RAIL_PRESETS: Array<{
+  aspect: number;
+  frame: PictureFrameStyle;
+  mat: boolean;
+  drop: number;
+  tag: string;
+}> = [
+  { aspect: 1.25, frame: "black", mat: true, drop: 0.02, tag: "20 MW · Tier IV" },
+  { aspect: 1.15, frame: "white", mat: true, drop: 0.1, tag: "78 MW · Thailand" },
+  { aspect: 1.33, frame: "oak", mat: false, drop: -0.02, tag: "±123 MW · West Java" },
+  { aspect: 0.9, frame: "black", mat: true, drop: 0.14, tag: "7-Storey · Forensic" },
+  { aspect: 1.1, frame: "white", mat: true, drop: 0.05, tag: "5,711 m² · Retrofit" },
+  { aspect: 0.8, frame: "oak", mat: true, drop: 0.0, tag: "14 Storeys · Jakarta" },
+  { aspect: 1.35, frame: "black", mat: false, drop: 0.08, tag: "92 ha · Industrial" },
+  { aspect: 1.15, frame: "oak", mat: true, drop: 0.03, tag: "CCPP · LNG · Mining" },
+];
+
 export default function App() {
-  const { profile, heroGalleryImages, highlights, projects, moreProjectsVisual, moreProjectsRegister, experiences, skills, credentials } = PORTFOLIO;
+  const { profile, highlights, projects, moreProjectsVisual, moreProjectsRegister, experiences, skills, credentials } = PORTFOLIO;
 
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [exhibitionMode, setExhibitionMode] = useState(false);
+  const [litRailIndex, setLitRailIndex] = useState<number | null>(null);
 
   // Profile photography toggle
   const [portraitMode, setPortraitMode] = useState<"field" | "executive">("field");
@@ -62,12 +81,37 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const locked = Boolean(activeProjectId || lightboxState || exhibitionMode);
+    const locked = Boolean(activeProjectId || lightboxState);
     document.body.style.overflow = locked ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [activeProjectId, lightboxState, exhibitionMode]);
+  }, [activeProjectId, lightboxState]);
+
+  const railItems = useMemo<PictureRailItem[]>(
+    () =>
+      projects.map((p, idx) => {
+        const preset = RAIL_PRESETS[idx % RAIL_PRESETS.length];
+        return {
+          id: p.id,
+          title: p.title,
+          artist: p.location,
+          year: p.year,
+          image: p.image,
+          aspect: preset.aspect,
+          frame: preset.frame,
+          mat: preset.mat,
+          drop: preset.drop,
+          tag: preset.tag,
+          details: [
+            p.role,
+            ...p.specs.slice(0, 2).map((s) => `${s.label}: ${s.value}`),
+            `Codes: ${p.codes.slice(0, 3).join(" · ")}`,
+          ],
+        };
+      }),
+    [projects]
+  );
 
   const categories = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -99,14 +143,6 @@ export default function App() {
     if (idx === -1) return;
     const nextIdx = (idx + delta + projects.length) % projects.length;
     setActiveProjectId(projects[nextIdx].id);
-  };
-
-  const handleSelectHeroImage = (imageIndex: number) => {
-    const chosen = heroGalleryImages[imageIndex];
-    if (chosen && chosen.projectId) {
-      setExhibitionMode(false);
-      setActiveProjectId(chosen.projectId);
-    }
   };
 
   const handleCopyEmail = async () => {
@@ -173,7 +209,6 @@ export default function App() {
         <div className="mx-auto flex h-20 max-w-[1380px] items-center justify-between px-6 md:px-12">
           <a
             href="#top"
-            onClick={() => setExhibitionMode(false)}
             className="font-serif text-xl tracking-tight text-bone transition hover:opacity-80 md:text-2xl"
           >
             <span className="italic">Adita</span> Fahmi Hanif
@@ -190,7 +225,6 @@ export default function App() {
               <a
                 key={item.href}
                 href={item.href}
-                onClick={() => setExhibitionMode(false)}
                 className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone/70 transition hover:text-bone"
               >
                 {item.label}
@@ -233,7 +267,6 @@ export default function App() {
                   key={item.href}
                   href={item.href}
                   onClick={() => {
-                    setExhibitionMode(false);
                     setMobileMenuOpen(false);
                   }}
                   className="font-serif text-3xl text-bone/90"
@@ -257,100 +290,54 @@ export default function App() {
       </header>
 
       {/* =====================================================================
-          HERO: 3D INFINITE PHOTOGRAPHY & ARCHITECTURAL GALLERY (21st.dev)
+          HERO: INTERACTIVE PICTURE RAIL EXHIBITION WALL (21st.dev)
          ===================================================================== */}
-      <section
-        id="top"
-        className={cn(
-          "relative w-full overflow-hidden bg-obsidian",
-          exhibitionMode ? "fixed inset-0 z-40 h-screen" : "h-screen min-h-[680px]"
-        )}
-      >
-        <InfiniteGallery
-          images={heroGalleryImages}
-          speed={1.15}
-          zSpacing={3}
-          visibleCount={12}
-          monochrome
-          captureWheel={exhibitionMode}
-          onSelectImage={handleSelectHeroImage}
-          className="h-full w-full"
-        />
-
-        {/* Subtle gallery-white soft center readability veil (keeps outer 3D plates bright) */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 46% 32% at 50% 50%, rgba(246,245,240,0.82) 0%, rgba(246,245,240,0.42) 55%, rgba(246,245,240,0.0) 84%)",
+      <div id="top" className="pt-20">
+        <PictureRailGallery
+          items={railItems}
+          eyebrow={`${profile.role} · ${profile.location}`}
+          heading="Structures designed to stay standing when the ground moves."
+          caption="Brush along the rail to light a project, slide it along the wire, or lift a frame to inspect the label."
+          autoplay
+          interval={3200}
+          onActiveChange={setLitRailIndex}
+          labels={{
+            front: "Front",
+            back: "Back",
+            close: "Close",
+            open: "Lift frame to view",
           }}
-        />
-
-        {/* Monumental Centered Editorial Typography — crisp ink on gallery white */}
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-          <p
-            className="mb-4 font-mono text-[10px] uppercase tracking-[0.34em] text-[#111111]/85 md:text-[11px]"
-            style={{ textShadow: "0 1px 14px rgba(246,245,240,0.95), 0 0 4px rgba(246,245,240,0.95)" }}
-          >
-            {profile.role} · {profile.location}
-          </p>
-          <h1
-            className="font-serif text-5xl font-light tracking-tight text-[#0d0d0d] sm:text-7xl md:text-[6.25rem] md:leading-[0.95]"
-            style={{ textShadow: "0 4px 28px rgba(246,245,240,0.95), 0 1px 6px rgba(246,245,240,0.9)" }}
-          >
-            <span className="italic">Adita Fahmi</span> Hanif
-          </h1>
-          <p
-            className="mt-6 max-w-xl font-mono text-[10px] uppercase tracking-[0.26em] text-[#111111]/85 md:text-[11px]"
-            style={{ textShadow: "0 1px 14px rgba(246,245,240,0.95), 0 0 4px rgba(246,245,240,0.95)" }}
-          >
-            Data Centers · Seismic Design · Retrofit &amp; Forensics
-          </p>
-        </div>
-
-        {/* Quiet Bottom Exhibition Controls */}
-        <div className="absolute inset-x-0 bottom-0 z-10 border-t border-bone/10 bg-gradient-to-t from-obsidian/90 via-obsidian/50 to-transparent">
-          <div className="mx-auto flex max-w-[1380px] flex-wrap items-center justify-between gap-4 px-6 py-5 md:px-12">
-            <button
-              type="button"
-              onClick={() => setExhibitionMode((v) => !v)}
-              className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-bone/80 transition hover:text-bone"
-            >
-              <Expand className="h-3.5 w-3.5" />
-              <span>
-                {exhibitionMode
-                  ? "Exit 3D Exhibition"
-                  : "Lock 3D Exhibition Mode"}
-              </span>
-            </button>
-
-            <p className="hidden text-center font-mono text-[10px] uppercase tracking-[0.22em] text-stone lg:block">
-              {exhibitionMode
-                ? "Scroll wheel, arrow keys, or swipe to navigate · Click any frame to inspect"
-                : "Scroll or ← → to drift · Click any floating work to open case study"}
-            </p>
-
-            {exhibitionMode ? (
-              <button
-                type="button"
-                onClick={() => setExhibitionMode(false)}
-                className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-bone transition hover:opacity-75"
-              >
-                <span>Return to Monograph</span>
-                <X className="h-3.5 w-3.5" />
-              </button>
-            ) : (
+          className="min-h-[calc(100svh-5rem)] flex flex-col justify-center"
+          action={
+            <div className="mt-1 flex flex-wrap items-center justify-center gap-3">
+              {litRailIndex !== null && projects[litRailIndex] ? (
+                <button
+                  type="button"
+                  onClick={() => setActiveProjectId(projects[litRailIndex].id)}
+                  className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-xs font-medium tracking-wide text-background shadow-sm transition hover:-translate-y-px hover:shadow-md"
+                >
+                  <span>Inspect {projects[litRailIndex].title}</span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </button>
+              ) : (
+                <a
+                  href="#works"
+                  className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-xs font-medium tracking-wide text-background shadow-sm transition hover:-translate-y-px hover:shadow-md"
+                >
+                  <span>Browse Full Monograph</span>
+                  <ArrowDown className="h-3.5 w-3.5" />
+                </a>
+              )}
               <a
                 href="#profile"
-                className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-bone/85 transition hover:text-bone"
+                className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-xs font-medium tracking-wide text-foreground/80 transition hover:border-foreground/40 hover:text-foreground"
               >
-                <span>Enter Monograph</span>
-                <ArrowDown className="h-3.5 w-3.5" />
+                <span>Practice &amp; Profile</span>
               </a>
-            )}
-          </div>
-        </div>
-      </section>
+            </div>
+          }
+        />
+      </div>
 
       {/* =====================================================================
           EDITORIAL STATEMENT & PROFILE
