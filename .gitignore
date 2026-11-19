@@ -1,0 +1,31 @@
+# Dependencies & build output
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+
+# Environment & OS files
+.env
+.env.*
+.DS_Store
+Thumbs.db
+
+# =============================================================================
+# CONFIDENTIAL / INTERNAL SOURCE FILES (DO NOT PUBLISH TO GITHUB)
+# Only publication-safe curated copies inside /public/ are tracked in Git.
+# =============================================================================
+/assets/
+/portfolio-content.md
+/portfolio-content-paste.md
+/*.pdf
+/*.docx
+/*.jpg
+/*.png
+
+# Legacy v1 static prototype files (replaced by React/Vite app in /src/)
+/app.js
+/styles.css
+/portfolio-data.js
+/portfolio-extras.js
+/buka-portofolio.bat
+/push-ke-github.bat
