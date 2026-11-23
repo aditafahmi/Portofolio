@@ -1022,6 +1022,9 @@ export default function App() {
                   className="mt-2 w-full border-b border-bone/20 bg-obsidian py-3 text-sm text-bone focus:border-bone focus:outline-none"
                 >
                   <option value="Senior Structural Role">Senior Structural Role</option>
+                  <option value="Engineering Management / Leadership">
+                    Engineering Management / Leadership
+                  </option>
                   <option value="Data Center Structural Engineering">
                     Data Center Structural Engineering
                   </option>

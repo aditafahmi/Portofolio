@@ -56,7 +56,7 @@ export const PORTFOLIO = {
     disciplines: ["Data Centers", "Seismic Design", "Retrofit & Forensics"],
     location: "Jakarta, Indonesia",
     region: "Southeast & Central Asia",
-    availability: "Open to senior structural roles and consulting collaborations",
+    availability: "Open to engineering management, senior structural roles, and consulting collaborations",
     tagline:
       "The earth moves. The fire burns. The structure doesn’t flinch.",
     about: [
