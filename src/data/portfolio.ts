@@ -58,7 +58,7 @@ export const PORTFOLIO = {
     region: "Southeast & Central Asia",
     availability: "Open to senior structural roles and consulting collaborations",
     tagline:
-      "Structures designed to stay standing when the ground moves, from seven-storey process plants to 123 MW hyperscale data centers.",
+      "The earth moves. The fire burns. The structure doesn’t flinch.",
     about: [
       "Lead Structural Engineer with 14 years of experience in the design and assessment of industrial facilities, mission-critical data centers and medium-rise buildings, including international projects in Southeast and Central Asia. Specialised in seismic engineering and advanced reinforced concrete design, with strong competence in steel structures. Led the structural design of Indonesia's 20 MW National E-Gov Data Center, the first GBCI Platinum-certified data center in the country, and currently leads structural design for hyperscale data centers of up to ±123 MW.",
       "Extensive experience on structures already in service: forensic investigation, post-fire and post-earthquake assessment, technical due diligence and retrofit of facilities in operation. Earlier career work covers combined-cycle power plants, LNG and mining facilities. Designs are kept fully traceable from report to model to source data, supported by in-house ETABS API scripts and parametric design templates for special moment frame beams and columns, anchors and steel connections.",
